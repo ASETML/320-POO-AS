@@ -11,12 +11,14 @@ namespace Drones
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private List<Drone> fleet;
+        private List<Building> buildings;
+        
 
         BufferedGraphicsContext currentContext;
-        BufferedGraphics airspace;
+        public BufferedGraphics airspace;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(List<Drone> fleet)
+        public AirSpace(List<Drone> fleet, List<Building> buildings)
         {
             InitializeComponent();
             // Gets a reference to the current BufferedGraphicsContext
@@ -24,37 +26,41 @@ namespace Drones
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            this.fleet = fleet;
+            //this.fleet = fleet;
+            //this.buildings = buildings;
         }
 
         // Affichage de la situation actuelle
         private void Render()
         {
             airspace.Graphics.Clear(Color.AliceBlue);
-
             // draw drones
             foreach (Drone drone in fleet)
             {
                 drone.Render(airspace);
+                airspace.Render();
             }
-
-            airspace.Render();
-        }
-
-        // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
-        private void Update(int interval)
-        {
-            foreach (Drone drone in fleet)
+            //Draw buildings
+            foreach (Building building in buildings)
             {
-                drone.Update(interval);
+                building.Render(airspace);
+                airspace.Render();
             }
         }
+            // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
+            private void Update(int interval)
+            {
+                foreach (Drone drone in fleet)
+                {
+                    drone.Update(interval);
+                }
+            }
 
-        // Méthode appelée à chaque frame
-        private void NewFrame(object sender, EventArgs e)
-        {
-            this.Update(ticker.Interval);
-            this.Render();
+            // Méthode appelée à chaque frame
+            private void NewFrame(object sender, EventArgs e)
+            {
+                this.Update(ticker.Interval);
+                this.Render();
+            }
         }
     }
-}

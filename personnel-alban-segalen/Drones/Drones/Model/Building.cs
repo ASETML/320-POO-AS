@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drones.Model
+namespace Drones
 {
     class Building
     {
@@ -14,9 +14,9 @@ namespace Drones.Model
         public int widthX { get; set; }
         public int widthY { get; set; }
 
-        public Color color { get; set; }
+        public Color buildingColor { get; set; } = new Color();
 
-        private Pen buildingBrush = new Pen(new SolidBrush(this.color), 3);
+        private Pen buildingBrush;
 
         public Building(int coordX, int coordY, int widthX, int widthY, Color color)
         {
@@ -24,13 +24,13 @@ namespace Drones.Model
             this.coordY = coordY;
             this.widthX = widthX;
             this.widthY = widthY;
-            this.color = color;
-        }
+            this.buildingColor = color;
+            buildingBrush = new Pen(new SolidBrush(buildingColor), 3);
+    }
 
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawRectangle();
-            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, _x + 5, _y - 5);
+            drawingSpace.Graphics.DrawRectangle(buildingBrush, new Rectangle(coordX, coordY, widthX, widthY));
         }
     }
 }

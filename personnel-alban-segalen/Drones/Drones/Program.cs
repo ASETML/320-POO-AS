@@ -20,8 +20,14 @@ namespace Drones
             drone.SetName("Joe");
             fleet.Add(drone);
 
+            List<Building> buildings = new List<Building>();
+            Building b1 = new Building(60, 50, 25, 25, Color.DeepPink);
+            Building b2 = new Building(70, 60, 35, 25, Color.Honeydew);
+            buildings.Add(b1);
+            buildings.Add(b2);
+
             // Démarrage
-            Application.Run(new AirSpace(fleet));
+            Application.Run(new AirSpace(fleet, buildings));
         }
     }
 }
