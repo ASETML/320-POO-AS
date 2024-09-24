@@ -19,15 +19,36 @@ namespace Drones
             drone.SetY(100);
             drone.SetName("Joe");
             fleet.Add(drone);
+            try
+            {
+                if (fleet.Count > 10)
+                {
+                    throw new DroneLimitExceededException("Too Many Drones");
+                }
+            }
 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             List<Building> buildings = new List<Building>();
             Building b1 = new Building(60, 50, 25, 25, Color.DeepPink);
             Building b2 = new Building(70, 60, 35, 25, Color.Honeydew);
             buildings.Add(b1);
             buildings.Add(b2);
 
+
             // Démarrage
-            Application.Run(new AirSpace(fleet, buildings));
+            try
+            {
+                Application.Run(new AirSpace(/*fleet, buildings*/));
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine (ex.Message);
+            }
         }
     }
 }

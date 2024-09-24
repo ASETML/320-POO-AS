@@ -18,7 +18,7 @@ namespace Drones
         public BufferedGraphics airspace;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(List<Drone> fleet, List<Building> buildings)
+        public AirSpace(/*List<Drone> fleet, List<Building> buildings*/)
         {
             InitializeComponent();
             // Gets a reference to the current BufferedGraphicsContext
@@ -26,8 +26,16 @@ namespace Drones
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            //this.fleet = fleet;
-            //this.buildings = buildings;
+            try
+            {
+            }
+
+            catch (Exception ex)
+            {
+                throw new DroneLimitExceededException("too many");
+            }
+
+            this.buildings = buildings;
         }
 
         // Affichage de la situation actuelle
