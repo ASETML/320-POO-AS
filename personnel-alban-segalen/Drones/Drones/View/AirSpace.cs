@@ -1,3 +1,4 @@
+using Drones.Model;
 namespace Drones
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
@@ -36,6 +37,8 @@ namespace Drones
             }
 
             this.buildings = buildings;
+
+            Dispatch dispatcher = new Dispatch();
         }
 
         // Affichage de la situation actuelle
@@ -61,6 +64,14 @@ namespace Drones
                 foreach (Drone drone in fleet)
                 {
                     drone.Update(interval);
+                }
+
+                foreach (Building building in buildings)
+                {
+                    if (building.GetType() == typeof(Factory))
+                    {
+                        Box box = new Box("brun");
+                    }
                 }
             }
 
