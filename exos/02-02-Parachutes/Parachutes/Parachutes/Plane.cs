@@ -24,17 +24,20 @@ namespace Parachutes
         };
 
         // Model attributes
-        public int x;
-        public int altitude;
+        private int _x;
+        private int _altitude;
         public List<Para> parachutists;
+
+        public int X { get => _x; set => _x = value; }
+        public int Altitude { get => _altitude; set => _altitude = value; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         public Plane()
         {
-            x = 0;
-            altitude = Config.SCREEN_HEIGHT;
+            _x = 0;
+            _altitude = Config.SCREEN_HEIGHT;
             parachutists = new List<Para>();
         }
 
@@ -45,7 +48,7 @@ namespace Parachutes
         {
             for (int i = 0; i < view.Length; i++)
             {
-                Console.SetCursorPosition(x, i);
+                Console.SetCursorPosition(_x, i);
                 Console.Write(view[i]);
             }
         }
@@ -55,13 +58,13 @@ namespace Parachutes
         /// </summary>
         public void update()
         {
-            if (x >= Config.SCREEN_WIDTH)
+            if (_x >= Config.SCREEN_WIDTH)
             {
-                x = 0;
+                _x = 0;
             }
             else
             {
-                x++;
+                _x++;
             }
         }
 
@@ -78,8 +81,8 @@ namespace Parachutes
         {
             Para parachutist = parachutists.First();
             parachutists.Remove(parachutist);
-            parachutist.x = x;
-            parachutist.altitude = this.altitude;
+            parachutist.x = _x;
+            parachutist.altitude = this._altitude;
             return parachutist;
         }
     }
